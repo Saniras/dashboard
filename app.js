@@ -4,10 +4,18 @@ const app = express();
 const path = require("path");
 const fetch = require("node-fetch"); // You will need to install node-fetch with npm install node-fetch
 const { createRequire } = require("module");
+
 app.use(express.static(path.join(__dirname, "public")));
--app.get("/", function (req, res) {
+
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
+
+app.get("/{id}", function (req, res) {
+  res.sendFile(path.join(__dirname, "{id}.html"));
+});
+
+app.use(express.static(__dirname + "/vendors"));
 
 // Define the /api/data endpoint
 app.get("/api/data", (req, res) => {
